@@ -1,0 +1,36 @@
+body{
+    font-family: "Courier New";
+    background-color: #18020C;
+    color: #E5FFDE;
+    padding: 10em;
+    border-radius: 5em;
+    margin: 1em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    justify-content: center;
+}
+
+button {
+    margin: 1em;
+    height: 1.5cm;
+    width: 1.5cm;
+    background: #E5FFDE;
+    cursor: pointer;
+    border-radius: 50%;
+    
+}
+.button1 {
+    background-color: #E5FFDE;
+    color: black;
+  }
+  
+  .button1:hover {
+   
+    background-color: white; 
+    color: black; 
+    border: 2px solid #E5FFDE;
+  }
+
+  
+  

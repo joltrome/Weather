@@ -1,0 +1,94 @@
+<html>
+
+<head>
+	<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />
+	<script type="text/javascript">
+		var request = new XMLHttpRequest();
+
+		function showWeatherInfo() {
+			var city_input = document.getElementById("city_input").value;
+			var url = encodeURI("/cgi-bin/weather.py?city=" + city_input);
+			url = encodeURI(url);
+			request.open("GET", url, true);
+			request.onreadystatechange = updatePage;
+			request.send(null);
+		}
+		function updatePage() {
+			if (request.readyState == 4) {
+				if (request.status == 200) {
+					var replyDoc = JSON.parse(request.responseText);
+
+					//input city
+					var city = replyDoc.city;
+					var cityElm = document.getElementById("city");
+					cityElm.removeChild(cityElm.firstChild);
+					cityElm.appendChild(document.createTextNode(city));
+
+					//input tempt
+					var temp = replyDoc.temp;
+					var tempElm = document.getElementById("temp");
+					tempElm.removeChild(tempElm.firstChild);
+					tempElm.appendChild(document.createTextNode(temp));
+
+					var humidity = replyDoc.humidity;
+					var humidityElm = document.getElementById("humidity");
+					humidityElm.removeChild(humidityElm.firstChild);
+					humidityElm.appendChild(document.createTextNode(humidity));
+
+					var timezone = replyDoc.timezone;
+					var timezoneElm = document.getElementById("timezone");
+					timezoneElm.removeChild(timezoneElm.firstChild);
+					timezoneElm.appendChild(document.createTextNode(timezone));
+
+					var latitude = replyDoc.latitude;
+					var latitudeElm = document.getElementById("latitude");
+					latitudeElm.removeChild(latitudeElm.firstChild);
+					latitudeElm.appendChild(document.createTextNode(latitude));
+
+					var longitude = replyDoc.longitude;
+					var longitudeElm = document.getElementById("longitude");
+					longitudeElm.removeChild(longitudeElm.firstChild);
+					longitudeElm.appendChild(document.createTextNode(longitude));
+
+					var feels = replyDoc.feels;
+					var feelsElm = document.getElementById("feels");
+					feelsElm.removeChild(feelsElm.firstChild);
+					feelsElm.appendChild(document.createTextNode(feels));
+
+
+
+					var icon = replyDoc.icon;
+					var imgElem = document.getElementById("icon");
+					imgElem.src = "http://openweathermap.org/img/w/" + icon + ".png";
+				}
+			}
+		}
+	</script>
+	<link rel="stylesheet" href="weather.css">
+</head>
+
+<body>
+	<h1>Weather Information</h1>
+	<img id="icon" src="" width="64">
+	<p>
+		<b>City:</b> <span id="city"> City </span><br />
+		<b>Temperature</b>: <span id="temp">0</span> &#8451; <br />
+		<b>Feels like</b>: <span id="feels">0</span> &#8451; <br />
+		<b>Timezone:</b> <span id="timezone">0 </span> <br />
+		<b>Coordinates:</b> <span id="longitude">0</span>, <span id="latitude">0</span> <br />
+		<b>Humidity</b>: <span id="humidity">0</span> %
+	</p>
+
+	<p>
+		<input type="text" id="city_input">
+		<button class="button button1" type="submit" name="submit" onclick="showWeatherInfo()">Show</button>
+		
+
+	</p>
+	<button class="button button1" onclick="getElementById('demo').innerHTML=Date()">Time</button>
+	<p id="demo"></p>
+
+
+</body>
+
+</html>
